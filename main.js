@@ -230,7 +230,7 @@ function updateSatRecs() {
     try {
         var posArray = particlesGeometry.attributes.position.array
         particlesGeometry.attributes.position.needsUpdate = true
-        let count = 3;
+        let count = 0;
         for (var i = 0; i < satrecs.length; i++) {
             let satrec = satrecs[i]["satrec"];
             let mesh = satrecs[i]["mesh"]
@@ -245,13 +245,10 @@ function updateSatRecs() {
             let pos = calcPosFromLatLonRad(latitudeDeg, longitudeDeg, tlePos.height)
 
 
-            if (count == 3) {
-                posArray[i] = pos.x
-                posArray[i + 1] = pos.y
-                posArray[i + 2] = pos.z
-                count = 0
-            }
-            count++
+            posArray[count] = pos.x
+            posArray[count + 1] = pos.y
+            posArray[count + 2] = pos.z
+            count += 3
 
             particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
                 // mesh.position.set(pos.x, pos.y, pos.z)
